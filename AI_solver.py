@@ -1,8 +1,18 @@
 import rand
 
-def easy_solve:
+def easy_solve: #Mason's work
   # uncover cells randomly, avoiding flagged or already uncovered cells.
-   
+   available_cells = []
+  #Find cells that are neither covered or flagged.
+  for row in range(logic.grind.size):
+    for column in range(logic.grid_size):
+      if not logic.grid.is_revealed(row, column) and not logic.grid.is_flagged(row, colum)
+        available_cells.append((row, column))
+  #Reveal a random cell.
+  if available_cells:
+    cell = random.choice(available_cells)
+    logic.reveal_cell(cell[0], cell[1])
+
 def medium_solve:
   #"""
   #Do two rules:
