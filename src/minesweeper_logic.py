@@ -1,8 +1,10 @@
 '''
 Author: Max Toney, Cooper Fish
-Last Modified: 09.20.26
+Last Modified: 10.07.26
 Modification: Gaven - changed place_mines to exclude a 3x3 area rather than one cell
+Modifier: Han Zheng - prevent duplicate mine generation in the same game
 Purpose: This module defines the Logic class, which tracks the state of the game. It places the mines, counts the adjacent mines for each cell, reveals cells, and checks for a win or a loss.
+External sources: OpenAI Codex - generative AI assistance with Han Zheng's maintenance changes.
 '''
 
 import random
@@ -13,8 +15,11 @@ class Logic: #determines the logic of the game
         self.mine_count = mine_count #mine counter
         self.game_over = False #status of if the game is still ongoing 
         self.grid = Grid(size)
+        self.mines_placed = False
     
     def place_mines(self, safe_row=None, safe_col=None):# randomly places mines on the grid, leaving out the clicked cell and its 8 neighbors when a safe cell is given, then calculates the adjacent mine counts.
+        if self.mines_placed:
+            return
         all_cells = [
             (r, c)
             for r in range(self.grid.size)
@@ -31,6 +36,7 @@ class Logic: #determines the logic of the game
         for row, col in mine_locations:
             self.grid.get_cell(row, col).mine = True # mark that cell as a mine
         self.calc_adjacency() # calculate adjacency counts now that mines are placed
+        self.mines_placed = True
 
     def calc_adjacency(self): # counts the mines surrounding every non-mine cell and stores the count on the cell.
         for row in range(self.grid.size):

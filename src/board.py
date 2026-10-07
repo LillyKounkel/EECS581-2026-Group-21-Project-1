@@ -1,11 +1,13 @@
 '''
 Authors: Sakthivel Sivasubramanian, Anthony Tran
-Last Modified: 09.20.26
+Last Modified: 10.07.26
 Modification: Added comments; added A-J column and 1-10 row coordinate labels
+Modifier: Han Zheng - preserve safe first reveal when clicking flagged cells
 Purpose: This module defines the Board class, which draws the 10 x 10 Minesweeper grid nad the top status bar.
         It reads the mouse each frame (left click reveals, right click flags) and uses the Logic class to track the game
 External sources: Claude (Anthropic) - column-letter loop, label layout approach, and typo
-        fixes in _draw_labels. All other code by the named authors.
+        fixes in _draw_labels. All other original code by the named authors.
+        OpenAI Codex - generative AI assistance with Han Zheng's maintenance changes.
 '''
 
 import pyray as rl # pyray is the library 
@@ -81,6 +83,9 @@ class Board:  # this is for the board instances and renders input for the active
         row, column = target
 
         if rl.is_mouse_button_pressed(rl.MouseButton.MOUSE_BUTTON_LEFT):
+            cell = self.logic.grid.get_cell(row, column)
+            if cell.flagged or cell.revealed:
+                return
             if self.first_click:
                 # first click is guaranteed safe
                 self.logic.place_mines(row, column)
