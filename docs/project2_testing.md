@@ -71,5 +71,6 @@ The actual log is transcribed from the authoritative supplied PDF; the estimate
 uses the user-specified work items and totals 13.0 person-hours. Inherited
 Project 1 hours files remain unchanged.
 
-The final PR still requires the team's review and the user's explicit merge
-approval; this audit does not merge or submit the assignment.
+The audited changes in PR #2 were merged into `project2`. The `project2` branch
+is the final submission branch, and no further code changes are planned before
+submission.
