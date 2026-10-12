@@ -63,10 +63,13 @@ Screenshots are local verification output under ignored `artifacts/ui-smoke/`,
 not substitutes for the automated assertions. Tests do not claim that the AI
 always wins; fallback guesses or wrong player flags can lose normally.
 
-## Remaining team action
+## Submission status
 
-The repository only contains inherited Project 1 `hours_estimate.md` and
-`hours_log.md`. Add the actual Project 2 estimates and logged team hours from
-the shared Google Doc, or a grader-accessible link. No teammate hours were invented.
-The final PR requires the team's review and the user's explicit merge approval;
-this audit does not merge or submit the assignment.
+The [Project 2 actual person-hours log](project2_hours_log.md) and
+[task-based Project 2 estimate](project2_hours_estimate.md) are now included.
+The actual log is transcribed from the authoritative supplied PDF; the estimate
+uses the user-specified work items and totals 13.0 person-hours. Inherited
+Project 1 hours files remain unchanged.
+
+The final PR still requires the team's review and the user's explicit merge
+approval; this audit does not merge or submit the assignment.

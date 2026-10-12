@@ -60,7 +60,9 @@ The elapsed timer starts on the first valid reveal, freezes on victory/loss, and
 resets to zero on Reset or a new game. Reset keeps the chosen AI level.
 
 - [Project 2 architecture, AI design, timer UML and attribution](docs/project2.md)
-- [Regression commands, results and remaining submission items](docs/project2_testing.md)
+- [Regression commands and results](docs/project2_testing.md)
+- [Project 2 actual person-hours log](docs/project2_hours_log.md)
+- [Task-based Project 2 person-hours estimate](docs/project2_hours_estimate.md)
 
 From the repository root, with the existing virtual environment activated:
 
@@ -75,6 +77,7 @@ real game loop with scripted input and deterministic fixtures, saves actual
 Raylib screenshots under ignored `artifacts/ui-smoke/`, and closes its window.
 The normal game still runs with `python src/main.py`.
 
-The inherited Project 1 hours documents are preserved. Project 2 estimates and
-actual team hours from the shared Google Doc still need to be copied/linked by
-the team before submission; no teammate hours have been invented.
+The inherited Project 1 hours documents are preserved. The Project 2 actual log
+is transcribed from the authoritative supplied PDF. The Project 2 estimate is
+explicitly task-based because no earlier estimate was created; it does not assign
+estimates to individual teammates or alter actual recorded hours.

@@ -131,7 +131,13 @@ attribution. Codex assisted Han's final repair, integration, timer, tests and
 Project 2 documentation. The title image's existing ChatGPT attribution and
 Board's existing Claude attribution are retained.
 
-`hours_estimate.md` and `hours_log.md` contain inherited Project 1 records. The
-repository does not contain the shared Google Doc's Project 2 team hours. The
-team must add the real Project 2 estimates/actuals or an accessible link before
-submission. No estimates, teammate hours or contributor identities were fabricated.
+`hours_estimate.md` and `hours_log.md` retain their inherited Project 1 records.
+[Project 2 actual person-hours](project2_hours_log.md) reproduces all nine entries
+from the authoritative user-provided `Person Hours Log.pdf`, preserving the
+original names, dates, time ranges and descriptions.
+
+The team confirmed that no earlier Project 2 estimate existed. The
+[task-based Project 2 estimate](project2_hours_estimate.md) documents the supplied
+13.0 estimated person-hours by work item, based on complexity, integration,
+testing and documentation. It does not invent individual estimates or change
+actual logged hours.
