@@ -1,10 +1,14 @@
 '''
 Author: Gaven Behrends
-Last Modified: 09.20.26
+Last Modified: 10.11.26
 Modification: Abstract start button into a standalone function so main can use it.
               Also improved comments
+              Han Zheng - clarified file documentation only.
 Purpose: This module defines the Menu and Slider classes and the button helper function. The Menu draws the options panel where the number of mines is set and the game is started.
         The slider is used to change the mine count, while the button is used for the game start button and used in main.py for the end of game buttons
+Inputs: mouse input, mine-count slider state, font and optional cover image.
+Outputs: updated menu/slider state and whether Start Game was clicked.
+External sources: None documented.
 '''
 
 import pyray as rl

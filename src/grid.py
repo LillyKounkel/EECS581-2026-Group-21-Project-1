@@ -1,10 +1,14 @@
 '''
 Author: Jocelyn Miller
-Last Modified: 09.20.26
+Last Modified: 10.11.26
 Modification: Ashton - Added a flag count
+              Han Zheng - clarified file documentation only.
 Purpose: This module defines the Cell and Grid classes, which represent the state of a Minesweeper game board. 
 Each Cell tracks whether it contains a mine, whether it has been revealed or flagged, and how many adjacent mines it has. 
 The Grid class manages a 2D array of Cells and provides methods to access their status and render the game state.
+Inputs: row/column coordinates, cell state changes, mine count, and render parameters.
+Outputs: Cell/Grid state queries and rendered status information.
+External sources: None documented.
 '''
 
 import pyray as rl
