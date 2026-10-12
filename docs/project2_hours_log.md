@@ -23,5 +23,5 @@ The inherited Project 1 hours documents remain unchanged.
 | Sione Daniels | 10/8 | 1:15pm - 1:40pm | Wrote a get neighbors helper function for Ai solver |
 | Austin Haight | 10/8 | 2:20pm - 5:50pm | Implemented the hard solver, needs other solvers done for proper testing |
 | Sione Daniels | 10/9 | 12:30pm - 1:15pm | Fixed and committed medium solver |
-| Noah Hamlet | 10:11 | 2:30 pm - 3:30 pm | Implemented timer |
-| Han Zheng | 10/11 | 9:01pm - 22:15pm | Final project audit and integration; identified major issues in the AI solver and game integration, coordinated and reviewed the fixes, added/verified the timer feature, ran regression and UI testing, reviewed documentation, managed the final branch/PR workflow, and prepared the project for submission. |
+| Noah Hamlet | 10/11 | 2:30 pm - 3:30 pm | Implemented timer |
+| Han Zheng | 10/11 | 9:01pm - 10:15pm | Final project audit and integration; identified major issues in the AI solver and game integration, coordinated and reviewed the fixes, added/verified the timer feature, ran regression and UI testing, reviewed documentation, managed the final branch/PR workflow, and prepared the project for submission. |
