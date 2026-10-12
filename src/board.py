@@ -1,8 +1,10 @@
 '''
 Authors: Sakthivel Sivasubramanian, Anthony Tran
-Last Modified: 10.07.26
+Last Modified: 10.11.26
 Modification: Added comments; added A-J column and 1-10 row coordinate labels
 Modifier: Han Zheng - preserve safe first reveal when clicking flagged cells
+Modification: Han Zheng - current-board AI controls and elapsed game timer.
+Inputs/outputs: mouse/keyboard events update Logic; render draws the active board.
 Purpose: This module defines the Board class, which draws the 10 x 10 Minesweeper grid nad the top status bar.
         It reads the mouse each frame (left click reveals, right click flags) and uses the Logic class to track the game
 External sources: Claude (Anthropic) - column-letter loop, label layout approach, and typo
@@ -12,13 +14,16 @@ External sources: Claude (Anthropic) - column-letter loop, label layout approach
 
 import pyray as rl # pyray is the library 
 from minesweeper_logic import Logic # this tracks the state of the game and ill use that 
+from AI_solver import SOLVERS
+from game_timer import GameTimer
+from menu import button
 
 # constants for the 10 x 10 board
 _BoardRows = 10
 _BoardColumns = 10
 _CELL_size = 32  # was 36; shrunk to make room for the label gutter
 _Cell_Padding = 2 # gap between cells 
-_Top_Space = 60  # this is reserved aboce the grid to show status text 
+_Top_Space = 96  # status, elapsed time, and AI controls above the labels
 
 _LABEL_GUTTER = 24
 _LABEL_FONT_SIZE = 18
@@ -52,6 +57,8 @@ class Board:  # this is for the board instances and renders input for the active
         self.mine_count = mine_count
         self.first_click = True # tracks if the first click was placed 
         self.win = False # win = all safe cells are revealed 
+        self.ai_difficulty = "Easy"
+        self.timer = GameTimer()
 
         grid_width = _BoardColumns * _CELL_size
         self.origin_x = (rl.get_screen_width() - grid_width) // 2 # splits the screen width evenly on both sides centers the grid horizontally
@@ -59,10 +66,49 @@ class Board:  # this is for the board instances and renders input for the active
 
     # this shows the board 
     def render(self):
+        self._handle_ai_input()
         self._handle_input() # checks for clicks
         self._draw_status_bar() # this is between playing, victory, and loss
         self._draw_grid() 
         self._draw_labels()
+        self._draw_ai_controls()
+
+    def _finish_move(self):
+        self.first_click = not self.logic.mines_placed
+        if not self.first_click:
+            self.timer.start()
+        if self.logic.game_over:
+            self._reveal_all_mines()
+        elif self.logic.mines_placed and self.logic.check_win():
+            self.win = True
+        if self.logic.game_over or self.win:
+            self.timer.stop()
+
+    def ai_move(self):
+        """Use the active Logic instance; manual play stays available."""
+        if self.logic.game_over or self.win:
+            return False
+        moved = SOLVERS[self.ai_difficulty](self.logic)
+        if moved:
+            self._finish_move()
+        return moved
+
+    def _handle_ai_input(self):
+        for key, difficulty in zip((rl.KeyboardKey.KEY_ONE,
+                                    rl.KeyboardKey.KEY_TWO,
+                                    rl.KeyboardKey.KEY_THREE), SOLVERS):
+            if rl.is_key_pressed(key):
+                self.ai_difficulty = difficulty
+        if rl.is_key_pressed(rl.KeyboardKey.KEY_A):
+            self.ai_move()
+
+    def _draw_ai_controls(self):
+        for index, difficulty in enumerate(SOLVERS):
+            label = f"[{difficulty}]" if difficulty == self.ai_difficulty else difficulty
+            if button(rl.Rectangle(12 + index * 100, 64, 92, 26), label, self.font):
+                self.ai_difficulty = difficulty
+        if button(rl.Rectangle(330, 64, 125, 26), "AI Move (A)", self.font):
+            self.ai_move()
 
     # converts a screen  position into (row, column) or none if outside the grid
     def _cell_at(self, x, y):
@@ -86,16 +132,8 @@ class Board:  # this is for the board instances and renders input for the active
             cell = self.logic.grid.get_cell(row, column)
             if cell.flagged or cell.revealed:
                 return
-            if self.first_click:
-                # first click is guaranteed safe
-                self.logic.place_mines(row, column)
-                self.first_click = False
             self.logic.reveal_cell(row, column) 
-            # after every reveal, check whether the game has ended
-            if self.logic.game_over: 
-                self._reveal_all_mines()  # loss: show where all the mines were
-            elif self.logic.check_win():
-                self.win = True  # win: every safe cell is revealed
+            self._finish_move()
 
         elif rl.is_mouse_button_pressed(rl.MouseButton.MOUSE_BUTTON_RIGHT):
             # flagging is allowed even before the first reveal
@@ -127,6 +165,8 @@ class Board:  # this is for the board instances and renders input for the active
         status_size = rl.measure_text_ex(self.font, status, 28, 2)
         status_x = (rl.get_screen_width() - status_size.x) // 2
         rl.draw_text_ex(self.font, status, [status_x, 12], 28, 2, rl.WHITE)
+        rl.draw_text(f"Time: {int(self.timer.elapsed)} s", 12, 42, 18, rl.WHITE)
+        rl.draw_text("1/2/3: AI difficulty", 430, 42, 16, rl.WHITE)
 
     def _draw_grid(self): # draws every cell, covered cells show an F if flagged, revealed cells show a blank square, a mine number, or a mine.
         mouse_pos = rl.get_mouse_position()

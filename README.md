@@ -42,3 +42,42 @@ Left click a cell to reveal it. Right click to flag a cell as dangerous.
 - `src/`: Game code
 - `assets/`: Other files used by the game
 - `docs/`: Hours and [system architecture](docs/architecture.md)
+
+
+## Project 2
+
+<!-- Modifier: Han Zheng, 2026-10-11. Purpose: Project 2 controls/setup pointers.
+External source: OpenAI Codex assisted these additions; inherited content retained. -->
+
+The AI uses the same board as the player. Choose **Easy**, **Medium**, or **Hard**
+using the buttons above the grid (or keys **1**, **2**, **3**), then click
+**AI Move (A)** or press **A** for one AI action. Manual left/right clicks remain
+available. AI can make the first reveal safely, or continue a human-started game.
+Easy guesses, Medium uses neighboring clues/flags, and Hard adds the 1-2-1 rule.
+Guesses and incorrect player flags can still cause a loss.
+
+The elapsed timer starts on the first valid reveal, freezes on victory/loss, and
+resets to zero on Reset or a new game. Reset keeps the chosen AI level.
+
+- [Project 2 architecture, AI design, timer UML and attribution](docs/project2.md)
+- [Regression commands and results](docs/project2_testing.md)
+- [Project 2 actual person-hours log](docs/project2_hours_log.md)
+- [Task-based Project 2 person-hours estimate](docs/project2_hours_estimate.md)
+
+From the repository root, with the existing virtual environment activated:
+
+```sh
+python -m unittest discover -s tests -v
+python -m compileall -q src tests
+python tests/ui_smoke.py
+```
+
+The optional GUI smoke test requires a desktop/OpenGL environment. It drives the
+real game loop with scripted input and deterministic fixtures, saves actual
+Raylib screenshots under ignored `artifacts/ui-smoke/`, and closes its window.
+The normal game still runs with `python src/main.py`.
+
+The inherited Project 1 hours documents are preserved. The Project 2 actual log
+is transcribed from the authoritative supplied PDF. The Project 2 estimate is
+explicitly task-based because no earlier estimate was created; it does not assign
+estimates to individual teammates or alter actual recorded hours.
