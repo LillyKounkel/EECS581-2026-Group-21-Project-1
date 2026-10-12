@@ -1,2 +1,6 @@
 .venv
 src/__pycache__
+
+# Han Zheng, 2026-10-11: test bytecode and local GUI verification output.
+__pycache__/
+artifacts/

@@ -1,8 +1,10 @@
 '''
 Author: Max Toney, Cooper Fish
-Last Modified: 10.07.26
+Last Modified: 10.11.26
 Modification: Gaven - changed place_mines to exclude a 3x3 area rather than one cell
 Modifier: Han Zheng - prevent duplicate mine generation in the same game
+Modification: Han Zheng - share deferred safe placement with manual and AI reveals.
+Inputs/outputs: reveal coordinates update the current Grid and game_over state.
 Purpose: This module defines the Logic class, which tracks the state of the game. It places the mines, counts the adjacent mines for each cell, reveals cells, and checks for a win or a loss.
 External sources: OpenAI Codex - generative AI assistance with Han Zheng's maintenance changes.
 '''
@@ -65,6 +67,10 @@ class Logic: #determines the logic of the game
             return
         if cell.flagged: #if flagged, don't reveal
             return
+        if self.game_over:
+            return
+        if not self.mines_placed:
+            self.place_mines(row, col)
         cell.reveal() #reveals cell
         if cell.mine: #checks if the cell is a mine
             self.loss() #if it is, game over :(

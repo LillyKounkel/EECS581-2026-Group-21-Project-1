@@ -54,3 +54,17 @@ Stores one numeric value and draws a slider widget to edit it with.
      * _handle_mouse_input - Watches mouse input whenever the slider is being hovered. Watches for clicks to grab the slider, and moves with the cursor while grabbed.
 
 * button - A standalone function to render a button widget. Draws the button and returns True if the area drawn to is clicked.
+
+
+## Project 2 extension
+
+<!-- Modifier: Han Zheng, 2026-10-11. Purpose: link the current architecture.
+External source: OpenAI Codex assisted this addition; Project 1 content retained. -->
+
+The inherited description above records Project 1. In Project 2, mine placement
+is deferred in `Logic.reveal_cell` after revealed/flagged/game-over guards, so
+manual and AI reveals share first-move protection. `Board` adds difficulty/move
+controls and a `GameTimer`, synchronizes victory/loss after either kind of move,
+and retains the original coordinate labels. `main.py` retains menu/reset flow.
+
+See [Project 2 design and diagrams](project2.md) for the current relationships.

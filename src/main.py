@@ -1,6 +1,9 @@
 '''
 Author: Gaven Behrends
-Last Modified: 09.20.26
+Last Modified: 10.11.26
+Modifier: Han Zheng - room for AI controls; preserve chosen AI level on reset.
+Inputs/outputs: menu/board events control the window and current game session.
+External sources: ChatGPT title image; OpenAI Codex maintenance assistance.
 Modification: Add reset buttons to ended games, added comments
 Purpose: Entry point of Minesweeper. Creates a window and runs the loop that switches between options menu and the game
         One a game has ended, shows Go to Menu and Reset Buttons 
@@ -14,7 +17,7 @@ from board import Board
 def main(): # Sets up the window and then runs the main loop until the window is closed. Each frame it draws either the menu or the board, and shows the reset buttons once the game has ended.
     rl.set_config_flags(rl.ConfigFlags.FLAG_MSAA_4X_HINT 
                         | rl.ConfigFlags.FLAG_VSYNC_HINT)
-    rl.init_window(640, 480, "Minesweeper")
+    rl.init_window(640, 560, "Minesweeper")
     rl.set_target_fps(60)
 
     font = rl.get_font_default()
@@ -59,7 +62,9 @@ def main(): # Sets up the window and then runs the main loop until the window is
                     board = None
                 if button(reset_rect, "Reset", font):
                     # a new Board starts a fresh game with the same mine count
+                    difficulty = board.ai_difficulty
                     board = Board(font, menu.mines_slider.value)
+                    board.ai_difficulty = difficulty
 
         rl.end_drawing()
 
